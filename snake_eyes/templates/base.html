@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock title %} - Snake Eyes</title>
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/vendor/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/vendor/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/main.css') }}"/>
+    {% block extra_style %}{% endblock extra_style %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+            <img src="{{ url_for('static', filename='images/snake-eyes.jpg') }}" width="229" height="50" title="Snake Eyes" alt="Snake Eyes">
+        </a>
+      </div>
+    </nav>
+
+    <main class="container">
+        <div class="md-margin-top">{% block heading %}{% endblock %}</div>
+        {% block content %}{% endblock content %}
+    </main>
+
+    <footer class="footer text-center">
+        <div class="container">
+            <ul class="list-inline">
+                <li class="text-muted list-inline-item">Snake Eyes &copy; 2021</li>
+                <li class="list-inline-item"><a href="{{ url_for('page.privacy') }}">Privacy Policy</a></li>
+                <li class="list-inline-item"><a href="{{ url_for('page.terms') }}">Terms of Service</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script rel="script" type="application/javascript"
+            src="{{ url_for('static', filename='js/vendor/jquery.min.js') }}"></script>
+    <script rel="script" type="application/javascript"
+            src="{{ url_for('static', filename='js/vendor/bootstrap.bundle.min.js') }}"></script>
+    {% block extra_js %}{% endblock extra_js %}
+</body>
+</html>

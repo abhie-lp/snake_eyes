@@ -1,6 +1,7 @@
 """Main application file"""
 
 from flask import Flask
+from .blueprints.page import page
 
 
 def create_app() -> Flask:
@@ -10,9 +11,6 @@ def create_app() -> Flask:
     app.config.from_object("config.settings")
     app.config.from_pyfile("settings.py", silent=True)
 
-    @app.route("/")
-    def index():
-        """Simple Hello, World! response"""
-        return "Hello World!"
+    app.register_blueprint(page)
 
     return app
