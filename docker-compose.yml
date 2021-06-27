@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  website:
+    build: .
+    command: >
+      gunicorn -b 0.0.0.0:8000
+        --access-logfile -
+        --reload
+        "snake_eyes.app:create_app()"
+    environment:
+      PYTHONUNBUFFERED: "true"
+    volumes:
+      - ".:/snake_eyes"
+    ports:
+      - "8000:8000"
