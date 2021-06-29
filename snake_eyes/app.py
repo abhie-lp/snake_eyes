@@ -1,6 +1,7 @@
 """Main application file"""
 
 from flask import Flask
+from .extensions import debug_toolbar
 from .blueprints.page import page
 
 
@@ -16,4 +17,11 @@ def create_app(settings_override: dict = None) -> Flask:
 
     app.register_blueprint(page)
 
+    extensions(app)
+
     return app
+
+
+def extensions(app: Flask) -> None:
+    """Integrate all the extensions in the app"""
+    debug_toolbar.init_app(app)
