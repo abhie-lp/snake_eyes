@@ -2,7 +2,7 @@
 
 from flask import Flask
 from .extensions import debug_toolbar
-from .blueprints.page import page
+from .blueprints import page, contact
 
 
 def create_app(settings_override: dict = None) -> Flask:
@@ -15,7 +15,8 @@ def create_app(settings_override: dict = None) -> Flask:
     if settings_override:
         app.config.update(settings_override)
 
-    app.register_blueprint(page)
+    app.register_blueprint(page.page)
+    app.register_blueprint(contact.contact)
 
     extensions(app)
 
