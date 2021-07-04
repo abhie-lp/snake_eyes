@@ -6,7 +6,9 @@ from flask import Flask
 from .extensions import debug_toolbar
 from .blueprints import page, contact
 
-CELERY_TASK_LIST = []
+CELERY_TASK_LIST = [
+    "snake_eyes.blueprints.contact.task"
+]
 
 
 def create_celery_app(app: Flask = None):
@@ -22,7 +24,7 @@ def create_celery_app(app: Flask = None):
 
         def __call__(self, *args, **kwargs):
             with app.app_context():
-                return super(ContextTask, self).__call__(self, *args, **kwargs)
+                return super(ContextTask, self).__call__(*args, **kwargs)
 
     celery.Task = ContextTask
     return celery
