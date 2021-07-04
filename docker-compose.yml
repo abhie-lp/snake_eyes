@@ -1,8 +1,28 @@
 version: "3"
 
 services:
+  redis:
+    image: 'redis:6.2.4'
+    restart: on-failure
+    command: redis-server --requirepass redispassword
+    volumes:
+      - 'redis:/var/lib/redis/data'
+    ports:
+    - '6379:6379'
+  celery:
+    build: .
+    command: celery -A "snake_eyes.app.celery_app" worker -l info
+    restart: on-failure
+    env_file:
+      - .env
+    volumes:
+      - '.:/snake_eyes'
+    depends_on:
+      - redis
+      - website
   website:
     build: .
+    restart: on-failure
     command: >
       gunicorn -b 0.0.0.0:8000
         --access-logfile -
@@ -14,3 +34,5 @@ services:
       - ".:/snake_eyes"
     ports:
       - "8000:8000"
+volumes:
+  redis: {}
